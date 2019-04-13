@@ -68,5 +68,58 @@ namespace Tests
       var expectedResult = new Tuple(1, 1, 6, 1);
       Assert.AreEqual(expectedResult, sum);
     }
+
+    [Test]
+    public void TestSubtractingTwoPoints()
+    {
+      var p1 = Tuple.Point(3, 2, 1);
+      var p2 = Tuple.Point(5, 6, 7);
+
+      var sub = p1 - p2;
+      var expectedResult = Tuple.Vector(-2, -4, -6);
+      Assert.AreEqual(expectedResult, sub);
+    }
+
+    [Test]
+    public void TestSubtractingVectorFromPoint()
+    {
+      var p1 = Tuple.Point(3, 2, 1);
+      var v2 = Tuple.Vector(5, 6, 7);
+
+      var sub = p1 - v2;
+      var expectedResult = Tuple.Point(-2, -4, -6);
+      Assert.AreEqual(expectedResult, sub);
+    }
+
+    [Test]
+    public void TestSubtractingTwoVectors()
+    {
+      var v1 = Tuple.Vector(3, 2, 1);
+      var v2 = Tuple.Vector(5, 6, 7);
+
+      var sub = v1 - v2;
+      var expectedResult = Tuple.Vector(-2, -4, -6);
+      Assert.AreEqual(expectedResult, sub);
+    }
+
+    [Test]
+    public void TestSubtractingVectorFromZeros()
+    {
+      var v1 = Tuple.Vector(1, -2, 3);
+      var zero = Tuple.Vector(0, 0, 0);
+
+      var sub = zero - v1;
+      var expectedResult = Tuple.Vector(-1, 2, -3);
+      Assert.AreEqual(expectedResult, sub);
+    }
+
+    [Test]
+    public void TestNegateTuple()
+    {
+      var v1 = Tuple.Vector(1, -2, 3);
+      var expectedResult = Tuple.Vector(-1, 2, -3);
+      Assert.AreEqual(expectedResult, -v1);
+    }
+
   }
 }

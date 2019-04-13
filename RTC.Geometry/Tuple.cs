@@ -65,5 +65,14 @@ namespace RTC.Geometry
         t1.Z - t2.Z,
         t1.W - t2.W);
     }
+
+    public static Tuple operator -(Tuple tuple)
+    {
+      return new Tuple(
+        -tuple.X,
+        -tuple.Y,
+        -tuple.Z,
+        -tuple.W);
+    }
   }
 }
