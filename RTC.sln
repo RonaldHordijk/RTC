@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.Tests", "RTC.Tests\RTC.Tests.csproj", "{BD816376-727E-427B-B529-A626976165AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.Geometry", "RTC.Geometry\RTC.Geometry.csproj", "{BA15C605-F851-4116-B7E0-EC3B1641BF5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD816376-727E-427B-B529-A626976165AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD816376-727E-427B-B529-A626976165AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD816376-727E-427B-B529-A626976165AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD816376-727E-427B-B529-A626976165AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA15C605-F851-4116-B7E0-EC3B1641BF5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA15C605-F851-4116-B7E0-EC3B1641BF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA15C605-F851-4116-B7E0-EC3B1641BF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA15C605-F851-4116-B7E0-EC3B1641BF5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE3E67BD-8A04-4B20-88EC-44548131E8E3}
+	EndGlobalSection
+EndGlobal
