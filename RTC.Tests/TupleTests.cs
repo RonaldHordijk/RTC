@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using RTC.Geometry;
 
-namespace Tests
+namespace Geomety
 {
   public class TupleTests
   {
@@ -121,5 +121,61 @@ namespace Tests
       Assert.AreEqual(expectedResult, -v1);
     }
 
+    [Test]
+    public void TestMultiplyTupleByScalar()
+    {
+      var t = new Tuple(1, -2, 3, -4);
+      var expectedResult = new Tuple(3.5, -7, 10.5, -14);
+      Assert.AreEqual(expectedResult, 3.5 * t);
+    }
+
+    [Test]
+    public void TestMultiplyTupleByFraction()
+    {
+      var t = new Tuple(1, -2, 3, -4);
+      var expectedResult = new Tuple(0.5, -1, 1.5, -2);
+      Assert.AreEqual(expectedResult, 0.5 * t);
+    }
+
+    [Test]
+    public void TestDividetuple()
+    {
+      var t = new Tuple(1, -2, 3, -4);
+      var expectedResult = new Tuple(0.5, -1, 1.5, -2);
+      Assert.AreEqual(expectedResult, t / 2.0);
+    }
+
+    [TestCase(1.0, 0.0, 0.0, 1.0)]
+    [TestCase(0.0, 1.0, 0.0, 1.0)]
+    [TestCase(0.0, 0.0, 1.0, 1.0)]
+    [TestCase(1.0, 2.0, 3.0, 3.741657386773941)]
+    [TestCase(-1.0, -2.0, -3.0, 3.741657386773941)]
+    public void TestMagnitude(double x, double y, double z, double expectedResult)
+    {
+      var v = Tuple.Vector(x, y, z);
+      Assert.AreEqual(expectedResult, v.Magnitude, Epsilon);
+    }
+
+    [Test]
+    public void TestNormalization()
+    {
+      var v = Tuple.Vector(0, 0, 4);
+      v.Normalize();
+
+      Assert.AreEqual(Tuple.Vector(0, 0, 1), v);
+
+      var v2 = Tuple.Vector(1, 2, 3);
+      v2.Normalize();
+      Assert.AreEqual(Tuple.Vector(0.26726, 0.53452, 0.80178), v2);
+    }
+
+    [Test]
+    public void TestNormalizationMagnitude()
+    {
+      var v = Tuple.Vector(1, 2, 3);
+      v.Normalize();
+
+      Assert.AreEqual(1.0, v.Magnitude, Epsilon);
+    }
   }
 }

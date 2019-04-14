@@ -22,6 +22,8 @@ namespace RTC.Geometry
     public bool IsPoint => !IsVector;
     public bool IsVector => Math.Abs(W) < Epsilon;
 
+    public double Magnitude => Math.Sqrt((X * X) + (Y * Y) + (Z * Z) + (W * W));
+
     public static Tuple Point(double x, double y, double z) => new Tuple(x, y, z, 1.0);
     public static Tuple Vector(double x, double y, double z) => new Tuple(x, y, z, 0.0);
 
@@ -73,6 +75,33 @@ namespace RTC.Geometry
         -tuple.Y,
         -tuple.Z,
         -tuple.W);
+    }
+
+    public static Tuple operator *(double factor, Tuple tuple)
+    {
+      return new Tuple(
+        factor * tuple.X,
+        factor * tuple.Y,
+        factor * tuple.Z,
+        factor * tuple.W);
+    }
+
+    public static Tuple operator /(Tuple tuple, double divisor)
+    {
+      return new Tuple(
+        tuple.X / divisor,
+        tuple.Y / divisor,
+        tuple.Z / divisor,
+        tuple.W / divisor);
+    }
+
+    public void Normalize()
+    {
+      var Magnitude = this.Magnitude;
+      X /= Magnitude;
+      Y /= Magnitude;
+      Z /= Magnitude;
+      W /= Magnitude;
     }
   }
 }
