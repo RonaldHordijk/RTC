@@ -177,5 +177,24 @@ namespace Geomety
 
       Assert.AreEqual(1.0, v.Magnitude, Epsilon);
     }
+
+    [Test]
+    public void TestDotProduct()
+    {
+      var v1 = Tuple.Vector(1, 2, 3);
+      var v2 = Tuple.Vector(2, 3, 4);
+
+      Assert.AreEqual(20.0, Tuple.Dot(v1, v2));
+    }
+
+    [Test]
+    public void TestCrossProduct()
+    {
+      var v1 = Tuple.Vector(1, 2, 3);
+      var v2 = Tuple.Vector(2, 3, 4);
+
+      Assert.AreEqual(Tuple.Vector(-1, 2, -1), Tuple.Cross(v1, v2));
+      Assert.AreEqual(Tuple.Vector(1, -2, 1), Tuple.Cross(v2, v1));
+    }
   }
 }

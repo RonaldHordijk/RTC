@@ -26,6 +26,8 @@ namespace RTC.Geometry
 
     public static Tuple Point(double x, double y, double z) => new Tuple(x, y, z, 1.0);
     public static Tuple Vector(double x, double y, double z) => new Tuple(x, y, z, 0.0);
+    public static double Dot(Tuple v1, Tuple v2) => (v1.X * v2.X) + (v1.Y * v2.Y) + (v1.Z * v2.Z) + (v1.W * v2.W);
+    public static Tuple Cross(Tuple v1, Tuple v2) => Vector((v1.Y * v2.Z) - (v1.Z * v2.Y), (v1.Z * v2.X) - (v1.X * v2.Z), (v1.X * v2.Y) - (v1.Y * v2.X));
 
     public override bool Equals(object obj)
     {
