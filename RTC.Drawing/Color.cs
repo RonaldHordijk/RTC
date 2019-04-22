@@ -2,14 +2,16 @@
 
 namespace RTC.Drawing
 {
-  public class Color
+  public struct Color
   {
     private const double Epsilon = 0.00001;
 
-    private readonly double[] _color = { 0.0, 0.0, 0.0 };
+    private readonly double[] _color;
 
     public Color(double r, double g, double b)
     {
+      _color = new double[3];
+
       _color[0] = r;
       _color[1] = g;
       _color[2] = b;
