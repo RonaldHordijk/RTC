@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RTC.Drawing\RTC.Drawing.csproj" />
     <ProjectReference Include="..\RTC.Geometry\RTC.Geometry.csproj" />
   </ItemGroup>
 
