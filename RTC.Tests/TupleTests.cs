@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using RTC.Geometry;
 
-namespace Geomety
+namespace RTC.Tests.Geometry
 {
   public class TupleTests
   {

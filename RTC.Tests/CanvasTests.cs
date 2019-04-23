@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using RTC.Drawing;
 
-namespace Drawing
+namespace RTC.Tests.Drawing
 {
     [TestFixture]
     public class CanvasTests

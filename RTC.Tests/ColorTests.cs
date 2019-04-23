@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Drawing
+namespace RTC.Tests.Drawing
 {
   [TestFixture]
   public class TestColor
