@@ -4,6 +4,8 @@ namespace RTC.Geometry
 {
     public class Matrix3
     {
+        private const double Epsilon = 0.00001;
+
         private readonly double[,] _matrix;
 
         public Matrix3(double m00, double m01, double m02,
@@ -33,15 +35,15 @@ namespace RTC.Geometry
 
         public static bool operator ==(Matrix3 m1, Matrix3 m2)
         {
-            return m1._matrix[0, 0] == m2._matrix[0, 0]
-                && m1._matrix[0, 1] == m2._matrix[0, 1]
-                && m1._matrix[0, 2] == m2._matrix[0, 2]
-                && m1._matrix[1, 0] == m2._matrix[1, 0]
-                && m1._matrix[1, 1] == m2._matrix[1, 1]
-                && m1._matrix[1, 2] == m2._matrix[1, 2]
-                && m1._matrix[2, 0] == m2._matrix[2, 0]
-                && m1._matrix[2, 1] == m2._matrix[2, 1]
-                && m1._matrix[2, 2] == m2._matrix[2, 2];
+            return Math.Abs(m1._matrix[0, 0] - m2._matrix[0, 0]) < Epsilon
+                && Math.Abs(m1._matrix[0, 1] - m2._matrix[0, 1]) < Epsilon
+                && Math.Abs(m1._matrix[0, 2] - m2._matrix[0, 2]) < Epsilon
+                && Math.Abs(m1._matrix[1, 0] - m2._matrix[1, 0]) < Epsilon
+                && Math.Abs(m1._matrix[1, 1] - m2._matrix[1, 1]) < Epsilon
+                && Math.Abs(m1._matrix[1, 2] - m2._matrix[1, 2]) < Epsilon
+                && Math.Abs(m1._matrix[2, 0] - m2._matrix[2, 0]) < Epsilon
+                && Math.Abs(m1._matrix[2, 1] - m2._matrix[2, 1]) < Epsilon
+                && Math.Abs(m1._matrix[2, 2] - m2._matrix[2, 2]) < Epsilon;
         }
 
         public static bool operator !=(Matrix3 m1, Matrix3 m2) => !(m1 == m2);

@@ -51,22 +51,22 @@ namespace RTC.Geometry
 
         public static bool operator ==(Matrix4 m1, Matrix4 m2)
         {
-            return m1._matrix[0, 0] == m2._matrix[0, 0]
-                && m1._matrix[0, 1] == m2._matrix[0, 1]
-                && m1._matrix[0, 2] == m2._matrix[0, 2]
-                && m1._matrix[0, 3] == m2._matrix[0, 3]
-                && m1._matrix[1, 0] == m2._matrix[1, 0]
-                && m1._matrix[1, 1] == m2._matrix[1, 1]
-                && m1._matrix[1, 2] == m2._matrix[1, 2]
-                && m1._matrix[1, 3] == m2._matrix[1, 3]
-                && m1._matrix[2, 0] == m2._matrix[2, 0]
-                && m1._matrix[2, 1] == m2._matrix[2, 1]
-                && m1._matrix[2, 2] == m2._matrix[2, 2]
-                && m1._matrix[2, 3] == m2._matrix[2, 3]
-                && m1._matrix[3, 0] == m2._matrix[3, 0]
-                && m1._matrix[3, 1] == m2._matrix[3, 1]
-                && m1._matrix[3, 2] == m2._matrix[3, 2]
-                && m1._matrix[3, 3] == m2._matrix[3, 3];
+            return Math.Abs(m1._matrix[0, 0] - m2._matrix[0, 0]) < Epsilon
+                && Math.Abs(m1._matrix[0, 1] - m2._matrix[0, 1]) < Epsilon
+                && Math.Abs(m1._matrix[0, 2] - m2._matrix[0, 2]) < Epsilon
+                && Math.Abs(m1._matrix[0, 3] - m2._matrix[0, 3]) < Epsilon
+                && Math.Abs(m1._matrix[1, 0] - m2._matrix[1, 0]) < Epsilon
+                && Math.Abs(m1._matrix[1, 1] - m2._matrix[1, 1]) < Epsilon
+                && Math.Abs(m1._matrix[1, 2] - m2._matrix[1, 2]) < Epsilon
+                && Math.Abs(m1._matrix[1, 3] - m2._matrix[1, 3]) < Epsilon
+                && Math.Abs(m1._matrix[2, 0] - m2._matrix[2, 0]) < Epsilon
+                && Math.Abs(m1._matrix[2, 1] - m2._matrix[2, 1]) < Epsilon
+                && Math.Abs(m1._matrix[2, 2] - m2._matrix[2, 2]) < Epsilon
+                && Math.Abs(m1._matrix[2, 3] - m2._matrix[2, 3]) < Epsilon
+                && Math.Abs(m1._matrix[3, 0] - m2._matrix[3, 0]) < Epsilon
+                && Math.Abs(m1._matrix[3, 1] - m2._matrix[3, 1]) < Epsilon
+                && Math.Abs(m1._matrix[3, 2] - m2._matrix[3, 2]) < Epsilon
+                && Math.Abs(m1._matrix[3, 3] - m2._matrix[3, 3]) < Epsilon;
         }
 
         public static bool operator !=(Matrix4 m1, Matrix4 m2) => !(m1 == m2);
@@ -126,6 +126,28 @@ namespace RTC.Geometry
                  + _matrix[0, 3] * CoFactor(0, 3);
         }
 
+        public Matrix4 Inverse()
+        {
+            var det = Determinant();
+
+            if (Math.Abs(Determinant()) < Epsilon)
+            {
+                // unable to invert
+                return Identity;
+            }
+
+            var result = Identity;
+            for (int row = 0; row < 4; row++)
+            {
+                for (int col = 0; col < 4; col++)
+                {
+                    result._matrix[row, col] = this.CoFactor(row, col) / det;
+                }
+            }
+
+            return result.Transpose;
+        }
+
         public override string ToString()
         {
             return $"{_matrix[0, 0]} {_matrix[0, 1]} {_matrix[0, 2]} {_matrix[0, 3]}" + Environment.NewLine
@@ -133,5 +155,48 @@ namespace RTC.Geometry
                  + $"{_matrix[2, 0]} {_matrix[2, 1]} {_matrix[2, 2]} {_matrix[2, 3]}" + Environment.NewLine
                  + $"{_matrix[3, 0]} {_matrix[3, 1]} {_matrix[3, 2]} {_matrix[3, 3]}";
         }
+
+        public static Matrix4 Translation(int x, int y, int z) => new Matrix4(
+            1, 0, 0, x,
+            0, 1, 0, y,
+            0, 0, 1, z,
+            0, 0, 0, 1);
+
+        public static Matrix4 Scaling(int x, int y, int z) => new Matrix4(
+             x, 0, 0, 0,
+             0, y, 0, 0,
+             0, 0, z, 0,
+             0, 0, 0, 1);
+
+        public static Matrix4 RotationX(double angle) => new Matrix4(
+             1, 0, 0, 0,
+             0, Math.Cos(angle), -Math.Sin(angle), 0,
+             0, Math.Sin(angle), Math.Cos(angle), 0,
+             0, 0, 0, 1);
+
+        public static Matrix4 RotationY(double angle) => new Matrix4(
+             Math.Cos(angle), 0, Math.Sin(angle), 0,
+             0, 1, 0, 0,
+             -Math.Sin(angle), 0, Math.Cos(angle), 0,
+             0, 0, 0, 1);
+
+        public static Matrix4 RotationZ(double angle) => new Matrix4(
+             Math.Cos(angle), -Math.Sin(angle), 0, 0,
+             Math.Sin(angle), Math.Cos(angle), 0, 0,
+             0, 0, 1, 0,
+             0, 0, 0, 1);
+
+        public static Matrix4 Shearing(double xy, double xz, double yx, double yz, double zx, double zy) => new Matrix4(
+             1, xy, xz, 0,
+             yx, 1, yz, 0,
+             zx, zy, 1, 0,
+             0, 0, 0, 1);
+
+        public Matrix4 Translate(int x, int y, int z) => Translation(x, y, z) * this;
+        public Matrix4 Scale(int x, int y, int z) => Scaling(x, y, z) * this;
+        public Matrix4 RotateX(double angle) => RotationX(angle) * this;
+        public Matrix4 RotateY(double angle) => RotationY(angle) * this;
+        public Matrix4 RotateZ(double angle) => RotationZ(angle) * this;
+        public Matrix4 Shear(double xy, double xz, double yx, double yz, double zx, double zy) => Shearing(xy, xz, yx, yz, zx, zy) * this;
     }
 }

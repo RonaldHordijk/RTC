@@ -4,6 +4,8 @@ namespace RTC.Geometry
 {
     public class Matrix2
     {
+        private const double Epsilon = 0.00001;
+
         private readonly double[,] _matrix;
 
         public Matrix2(double m00, double m01, double m10, double m11)
@@ -30,10 +32,10 @@ namespace RTC.Geometry
 
         public static bool operator ==(Matrix2 m1, Matrix2 m2)
         {
-            return m1._matrix[0, 0] == m2._matrix[0, 0]
-                && m1._matrix[0, 1] == m2._matrix[0, 1]
-                && m1._matrix[1, 0] == m2._matrix[1, 0]
-                && m1._matrix[1, 1] == m2._matrix[1, 1];
+            return Math.Abs(m1._matrix[0, 0] - m2._matrix[0, 0]) < Epsilon
+                && Math.Abs(m1._matrix[0, 1] - m2._matrix[0, 1]) < Epsilon
+                && Math.Abs(m1._matrix[1, 0] - m2._matrix[1, 0]) < Epsilon
+                && Math.Abs(m1._matrix[1, 1] - m2._matrix[1, 1]) < Epsilon;
         }
 
         public static bool operator !=(Matrix2 m1, Matrix2 m2) => !(m1 == m2);
