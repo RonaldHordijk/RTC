@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RTC.Drawing\RTC.Drawing.csproj" />
+    <ProjectReference Include="..\RTC.Geometry.Objects\RTC.Geometry.Objects.csproj" />
     <ProjectReference Include="..\RTC.Geometry\RTC.Geometry.csproj" />
   </ItemGroup>
 

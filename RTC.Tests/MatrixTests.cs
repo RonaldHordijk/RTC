@@ -440,7 +440,6 @@ namespace RTC.Tests.Geometry
             Assert.AreEqual(m * p, Tuple.Point(-2, 3, 4));
         }
 
-
         [Test]
         public void TestRotateX()
         {
@@ -522,6 +521,5 @@ namespace RTC.Tests.Geometry
                 .Translate(10, 5, 7);
             Assert.AreEqual(Tuple.Point(15, 0, 7), t2 * p);
         }
-
     }
 }
