@@ -156,13 +156,13 @@ namespace RTC.Geometry
                  + $"{_matrix[3, 0]} {_matrix[3, 1]} {_matrix[3, 2]} {_matrix[3, 3]}";
         }
 
-        public static Matrix4 Translation(int x, int y, int z) => new Matrix4(
+        public static Matrix4 Translation(double x, double y, double z) => new Matrix4(
             1, 0, 0, x,
             0, 1, 0, y,
             0, 0, 1, z,
             0, 0, 0, 1);
 
-        public static Matrix4 Scaling(int x, int y, int z) => new Matrix4(
+        public static Matrix4 Scaling(double x, double y, double z) => new Matrix4(
              x, 0, 0, 0,
              0, y, 0, 0,
              0, 0, z, 0,
@@ -192,8 +192,8 @@ namespace RTC.Geometry
              zx, zy, 1, 0,
              0, 0, 0, 1);
 
-        public Matrix4 Translate(int x, int y, int z) => Translation(x, y, z) * this;
-        public Matrix4 Scale(int x, int y, int z) => Scaling(x, y, z) * this;
+        public Matrix4 Translate(double x, double y, double z) => Translation(x, y, z) * this;
+        public Matrix4 Scale(double x, double y, double z) => Scaling(x, y, z) * this;
         public Matrix4 RotateX(double angle) => RotationX(angle) * this;
         public Matrix4 RotateY(double angle) => RotationY(angle) * this;
         public Matrix4 RotateZ(double angle) => RotationZ(angle) * this;

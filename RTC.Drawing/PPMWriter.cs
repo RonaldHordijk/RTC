@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using static System.Math;
 
@@ -6,6 +7,12 @@ namespace RTC.Drawing
 {
     public class PPMWriter
     {
+        public static void WriteToFile(Canvas canvas, string filename)
+        {
+            var text = ToText(canvas);
+            File.WriteAllLines(filename, text);
+        }
+
         public static IEnumerable<string> ToText(Canvas canvas)
         {
             if (canvas is null)
@@ -27,7 +34,6 @@ namespace RTC.Drawing
                       .Append(" ")
                       .Append((int)(Clamp(c.Blue, 0, 1) * 255))
                       .Append(" ");
-
                 }
 
                 var lines = Split(sb.ToString().TrimEnd(), 70);
@@ -62,7 +68,6 @@ namespace RTC.Drawing
                         s = s.Substring(lastindex + 1);
                         break;
                     }
-
                 }
             }
         }
