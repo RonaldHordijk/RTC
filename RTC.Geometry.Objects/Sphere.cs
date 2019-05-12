@@ -1,4 +1,6 @@
-﻿namespace RTC.Geometry.Objects
+﻿using System;
+
+namespace RTC.Geometry.Objects
 {
     public class Sphere
     {
@@ -31,6 +33,17 @@
             return new Intersections {
                     new Intersection(t2, this),
                     new Intersection(t1, this) };
+        }
+
+        public Tuple Normal(Tuple worldPoint)
+        {
+            var objectPoint = Transform.Inverse() * worldPoint;
+            var objectNormal = Tuple.Vector(objectPoint.X, objectPoint.Y, objectPoint.Z);
+
+            var worldNormal = Transform.Inverse().Transpose * objectNormal;
+            worldNormal.W = 0;
+
+            return worldNormal.Normalized();
         }
     }
 }
