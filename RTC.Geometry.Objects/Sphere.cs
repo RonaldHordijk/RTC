@@ -1,12 +1,11 @@
-﻿using System;
-
-namespace RTC.Geometry.Objects
+﻿namespace RTC.Geometry.Objects
 {
     public class Sphere
     {
         public double Radius { get; set; } = 1.0;
         public Tuple Center { get; set; } = Tuple.Point(0, 0, 0);
         public Matrix4 Transform { get; set; } = Matrix4.Identity;
+        public Material Material { get; set; } = new Material();
 
         public Intersections Intersect(Ray ray)
         {
