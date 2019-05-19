@@ -106,6 +106,16 @@ namespace RTC.Geometry
             W /= Magnitude;
         }
 
+        static public Tuple Normalize(Tuple t)
+        {
+            var Magnitude = t.Magnitude;
+            return new Tuple(
+                t.X / Magnitude,
+                t.Y / Magnitude,
+                t.Z / Magnitude,
+                t.W / Magnitude);
+        }
+
         public Tuple Normalized()
         {
             var Magnitude = this.Magnitude;
@@ -119,6 +129,11 @@ namespace RTC.Geometry
         public static Tuple Reflect(Tuple v, Tuple normal)
         {
             return v - (2 * Dot(v, normal) * normal);
+        }
+
+        public override string ToString()
+        {
+            return $"{X} {Y} {Z} {W}";
         }
     }
 }

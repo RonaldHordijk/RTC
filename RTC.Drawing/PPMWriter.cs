@@ -57,7 +57,7 @@ namespace RTC.Drawing
                 while (true)
                 {
                     var index = s.IndexOf(" ", lastindex + 1);
-                    if (index < maxLength)
+                    if (index < maxLength && index > 0)
                     {
                         lastindex = index;
                     }
