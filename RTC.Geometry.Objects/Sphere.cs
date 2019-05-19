@@ -7,6 +7,27 @@
         public Matrix4 Transform { get; set; } = Matrix4.Identity;
         public Material Material { get; set; } = new Material();
 
+        public override bool Equals(object obj)
+        {
+            if (obj is Sphere sphere)
+                return this == sphere;
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public static bool operator ==(Sphere s1, Sphere s2)
+        {
+            return s1.Transform == s2.Transform
+              && s1.Material == s2.Material;
+        }
+
+        public static bool operator !=(Sphere s1, Sphere s2) => !(s1 == s2);
+
         public Intersections Intersect(Ray ray)
         {
             var rayTransFormed = ray.Transform(Transform.Inverse());

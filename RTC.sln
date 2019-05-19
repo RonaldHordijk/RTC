@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.Drawing", "RTC.Drawing\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.Geometry.Objects", "RTC.Geometry.Objects\RTC.Geometry.Objects.csproj", "{EB8FEB91-A810-4F04-9120-4EDE1A0584CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.RayCast1", "RTC.RayCast1\RTC.RayCast1.csproj", "{A83051C1-E597-42F4-B67C-9003149E5AFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast1", "RTC.RayCast1\RTC.RayCast1.csproj", "{A83051C1-E597-42F4-B67C-9003149E5AFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.RayCast2", "RTC.RayCast2\RTC.RayCast2.csproj", "{602E2627-05E3-4C7C-87D9-CBFAFECED61E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A83051C1-E597-42F4-B67C-9003149E5AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A83051C1-E597-42F4-B67C-9003149E5AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A83051C1-E597-42F4-B67C-9003149E5AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{602E2627-05E3-4C7C-87D9-CBFAFECED61E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{602E2627-05E3-4C7C-87D9-CBFAFECED61E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{602E2627-05E3-4C7C-87D9-CBFAFECED61E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{602E2627-05E3-4C7C-87D9-CBFAFECED61E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
