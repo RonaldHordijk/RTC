@@ -29,5 +29,14 @@ namespace RTC.Geometry.Objects.Utils
 
             return ambient + diffuse + specular;
         }
+
+        public static Color ShadeHit(World world, Computation comps)
+        {
+            return Lighting((comps.Object as Sphere)?.Material,
+                world.Light,
+                comps.Point,
+                comps.EyeVector,
+                comps.NormalVector);
+        }
     }
 }

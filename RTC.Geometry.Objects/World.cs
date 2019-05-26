@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using RTC.Drawing;
+using RTC.Geometry.Objects.Utils;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RTC.Geometry.Objects
@@ -18,6 +20,18 @@ namespace RTC.Geometry.Objects
 
             result.Sort((l, r) => (l.Distance - r.Distance) > 0 ? 1 : -1);
             return result;
+        }
+
+        public Color ColorAt(Ray ray)
+        {
+            var intersections = Intersect(ray);
+            var hit = intersections.Hit();
+            if (hit is null)
+                return new Color(0, 0, 0);
+
+            var comps = Computation.Prepare(hit, ray);
+
+            return LightUtil.ShadeHit(this, comps);
         }
     }
 }

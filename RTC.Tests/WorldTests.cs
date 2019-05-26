@@ -2,6 +2,7 @@
 using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Utils;
 
 namespace RTC.Tests
 {
@@ -77,6 +78,88 @@ namespace RTC.Tests
             Assert.AreEqual(xs[1].Distance, 4.5, Epsilon);
             Assert.AreEqual(xs[2].Distance, 5.5, Epsilon);
             Assert.AreEqual(xs[3].Distance, 6.0, Epsilon);
+        }
+
+        [Test]
+        public void TestPreComputing()
+        {
+            var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
+            var sphere = new Sphere();
+
+            var i = new Intersection(4, sphere);
+            var comp = Computation.Prepare(i, ray);
+
+            Assert.AreEqual(comp.Distance, i.Distance);
+            Assert.AreEqual(comp.Object, i.Object);
+            Assert.AreEqual(comp.Point, Tuple.Point(0, 0, -1));
+            Assert.AreEqual(comp.EyeVector, Tuple.Vector(0, 0, -1));
+            Assert.AreEqual(comp.NormalVector, Tuple.Vector(0, 0, -1));
+            Assert.IsFalse(comp.Inside);
+        }
+
+        [Test]
+        public void TestPreComputingInside()
+        {
+            var ray = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 0, 1));
+            var sphere = new Sphere();
+
+            var i = new Intersection(1, sphere);
+            var comp = Computation.Prepare(i, ray);
+
+            Assert.AreEqual(comp.Point, Tuple.Point(0, 0, 1));
+            Assert.AreEqual(comp.EyeVector, Tuple.Vector(0, 0, -1));
+            Assert.AreEqual(comp.NormalVector, Tuple.Vector(0, 0, -1));
+            Assert.IsTrue(comp.Inside);
+        }
+
+        [Test]
+        public void TestShadeIntersection()
+        {
+            var world = DefaultWorld();
+            var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
+            var sphere = world.Objects[0];
+            var i = new Intersection(4, sphere);
+
+            var comp = Computation.Prepare(i, ray);
+            var color = LightUtil.ShadeHit(world, comp);
+
+            Assert.AreEqual(new Color(0.38066, 0.47583, 0.2855), color);
+        }
+
+        [Test]
+        public void TestShadeIntersectionInside()
+        {
+            var world = DefaultWorld();
+            world.Light = new PointLight(Tuple.Point(0, 0.25, 0), new Color(1, 1, 1));
+            var ray = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 0, 1));
+            var sphere = world.Objects[1];
+            var i = new Intersection(0.5, sphere);
+
+            var comp = Computation.Prepare(i, ray);
+            var color = LightUtil.ShadeHit(world, comp);
+
+            Assert.AreEqual(new Color(0.90498, 0.90498, 0.90498), color);
+        }
+
+        [Test]
+        public void TestColorAtMiss()
+        {
+            var world = DefaultWorld();
+            var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 1, 0));
+
+            Assert.AreEqual(new Color(0, 0, 0), world.ColorAt(ray));
+        }
+
+        [Test]
+        public void TestColorAtBehindRay()
+        {
+            var world = DefaultWorld();
+            world.Objects[0].Material.Ambient = 1;
+            world.Objects[1].Material.Ambient = 1;
+
+            var ray = new Ray(Tuple.Point(0, 0, 0.75), Tuple.Vector(0, 0, -1));
+
+            Assert.AreEqual(world.Objects[1].Material.Color, world.ColorAt(ray));
         }
     }
 }

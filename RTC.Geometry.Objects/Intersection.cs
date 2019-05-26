@@ -1,6 +1,6 @@
 ﻿namespace RTC.Geometry.Objects
 {
-    public struct Intersection
+    public class Intersection
     {
         public double Distance { get; }
         public object Object { get; }
