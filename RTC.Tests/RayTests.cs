@@ -176,7 +176,7 @@ namespace RTC.Tests.Rays
                 i1
             };
 
-            Assert.IsNull(intersections.Hit().Object);
+            Assert.IsNull(intersections.Hit()?.Object);
         }
 
         [Test]
