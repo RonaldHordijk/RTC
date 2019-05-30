@@ -521,5 +521,45 @@ namespace RTC.Tests.Geometry
                 .Translate(10, 5, 7);
             Assert.AreEqual(Tuple.Point(15, 0, 7), t2 * p);
         }
+
+        [Test]
+        public void TestViewTransform()
+        {
+            var from = Tuple.Point(0, 0, 0);
+            var to = Tuple.Point(0, 0, 1);
+            var up = Tuple.Vector(0, 1, 0);
+
+            var t = Matrix4.ViewTransform(from, to, up);
+            Assert.AreEqual(Matrix4.Scaling(-1, 1, -1), t);
+        }
+
+        [Test]
+        public void TestViewTransform2()
+        {
+            var from = Tuple.Point(0, 0, 8);
+            var to = Tuple.Point(0, 0, 0);
+            var up = Tuple.Vector(0, 1, 0);
+
+            var t = Matrix4.ViewTransform(from, to, up);
+            Assert.AreEqual(Matrix4.Translation(0, 0, -8), t);
+        }
+
+        [Test]
+        public void TestViewTransform3()
+        {
+            var from = Tuple.Point(1, 3, 2);
+            var to = Tuple.Point(4, -2, 8);
+            var up = Tuple.Vector(1, 1, 0);
+
+            var t = Matrix4.ViewTransform(from, to, up);
+
+            var expected = new Matrix4(
+                -0.50709, 0.50709, 0.67612, -2.36643,
+                0.76772, 0.60609, 0.12122, -2.82843,
+                -0.35857, 0.59761, -0.71714, 0,
+                0,0,0,1);
+
+            Assert.AreEqual(expected, t);
+        }
     }
 }

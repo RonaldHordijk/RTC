@@ -198,5 +198,23 @@ namespace RTC.Geometry
         public Matrix4 RotateY(double angle) => RotationY(angle) * this;
         public Matrix4 RotateZ(double angle) => RotationZ(angle) * this;
         public Matrix4 Shear(double xy, double xz, double yx, double yz, double zx, double zy) => Shearing(xy, xz, yx, yz, zx, zy) * this;
+
+        public static Matrix4 ViewTransform(Tuple from, Tuple to, Tuple up)
+        {
+            var forward = to - from;
+            forward.Normalize();
+
+            up.Normalize();
+            var left = Tuple.Cross(forward, up);
+            var trueUp = Tuple.Cross(left, forward);
+
+            var orientation = new Matrix4(
+                left.X, left.Y, left.Z, 0,
+                trueUp.X, trueUp.Y, trueUp.Z, 0,
+                -forward.X, -forward.Y, -forward.Z, 0,
+                0, 0, 0, 1);
+
+            return orientation * Matrix4.Translation(-from.X, -from.Y, -from.Z);
+        }
     }
 }
