@@ -9,8 +9,8 @@ namespace RTC.RayCast2
     {
         static void Main(string[] args)
         {
-            const int width = 1000;
-            const int height = 1000;
+            const int width = 100;
+            const int height = 100;
             var canvas = new Canvas(width, height);
 
             var sphere = new Sphere();

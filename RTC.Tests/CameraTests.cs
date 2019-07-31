@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Utils;
 using static System.Math;
 
 namespace RTC.Tests
@@ -18,6 +20,30 @@ namespace RTC.Tests
             Assert.AreEqual(cam.Transform, Matrix4.Identity);
         }
 
+        private World DefaultWorld()
+        {
+            return new World
+            {
+                Light = new PointLight(Tuple.Point(-10, 10, -10), new Color(1, 1, 1)),
+                Objects =
+                {
+                    new Sphere
+                        {
+                            Material = new Material
+                            {
+                                Color = new Color(0.8, 1.0, 0.6),
+                                Diffuse = 0.7,
+                                Specular = 0.2
+                            }
+                        },
+                    new Sphere
+                        {
+                            Transform = Matrix4.Scaling(0.5, 0.5, 0.5)
+                        }
+                }
+            };
+        }
+
         [Test]
         public void TestPixelSize()
         {
@@ -33,7 +59,7 @@ namespace RTC.Tests
         {
             var cam = new Camera(201, 101, PI / 2);
             var ray = cam.RayAt(100, 50);
-            Assert.AreEqual(Tuple.Point(0,0,0), ray.Origin);
+            Assert.AreEqual(Tuple.Point(0, 0, 0), ray.Origin);
             Assert.AreEqual(Tuple.Vector(0, 0, -1), ray.Direction);
         }
 
@@ -56,6 +82,22 @@ namespace RTC.Tests
             var ray = cam.RayAt(100, 50);
             Assert.AreEqual(Tuple.Point(0, 2, -5), ray.Origin);
             Assert.AreEqual(Tuple.Vector(0.5 * Sqrt(2), 0, -0.5 * Sqrt(2)), ray.Direction);
+        }
+
+        [Test]
+        public void TestRenderWorldWithCamera()
+        {
+            var w = DefaultWorld();
+            var cam = new Camera(11, 11, PI / 2)
+            {
+                Transform = Matrix4.ViewTransform(
+                    Tuple.Point(0, 0, -5),
+                    Tuple.Point(0, 0, 0),
+                    Tuple.Vector(0, 1, 0))
+            };
+
+            Canvas image = Renderer.Render(cam, w);
+            Assert.AreEqual(new Color(0.38066, 0.47583, 0.2855), image.PixelAt(5, 5));
         }
     }
 }
