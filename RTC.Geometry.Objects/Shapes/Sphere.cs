@@ -1,43 +1,18 @@
-﻿namespace RTC.Geometry.Objects
+﻿namespace RTC.Geometry.Objects.Shapes
+
 {
-    public class Sphere
+    public class Sphere : Shape
     {
-        public double Radius { get; set; } = 1.0;
-        public Tuple Center { get; set; } = Tuple.Point(0, 0, 0);
-        public Matrix4 Transform { get; set; } = Matrix4.Identity;
-        public Material Material { get; set; } = new Material();
-
-        public override bool Equals(object obj)
-        {
-            if (obj is Sphere sphere)
-                return this == sphere;
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public static bool operator ==(Sphere s1, Sphere s2)
-        {
-            return s1.Transform == s2.Transform
-              && s1.Material == s2.Material;
-        }
-
-        public static bool operator !=(Sphere s1, Sphere s2) => !(s1 == s2);
-
-        public Intersections Intersect(Ray ray)
+        public override Intersections Intersect(Ray ray)
         {
             var rayTransFormed = ray.Transform(Transform.Inverse());
 
-            var sphereToRay = rayTransFormed.Origin - Center;
+            var sphereToRay = Tuple.Vector(rayTransFormed.Origin);
             var a = Tuple.Dot(rayTransFormed.Direction, rayTransFormed.Direction);
             var b = 2 * Tuple.Dot(rayTransFormed.Direction, sphereToRay);
-            var c = Tuple.Dot(sphereToRay, sphereToRay) - Radius * Radius;
+            var c = Tuple.Dot(sphereToRay, sphereToRay) - 1.0;
 
-            var discriminant = b * b - 4 * a * c;
+            var discriminant = (b * b) - (4 * a * c);
             if (discriminant < 0)
                 return new Intersections();
 
@@ -55,7 +30,7 @@
                     new Intersection(t1, this) };
         }
 
-        public Tuple Normal(Tuple worldPoint)
+        public override Tuple Normal(Tuple worldPoint)
         {
             var objectPoint = Transform.Inverse() * worldPoint;
             var objectNormal = Tuple.Vector(objectPoint.X, objectPoint.Y, objectPoint.Z);

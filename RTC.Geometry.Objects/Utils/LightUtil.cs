@@ -38,7 +38,7 @@ namespace RTC.Geometry.Objects.Utils
         {
             var Shadowed = ShadowUtil.IsShadowed(world, comps.OverPoint);
 
-            return Lighting((comps.Object as Sphere)?.Material,
+            return Lighting((comps.Shape)?.Material,
                 world.Light,
                 comps.Point,
                 comps.EyeVector,

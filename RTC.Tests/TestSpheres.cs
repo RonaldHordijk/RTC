@@ -1,11 +1,12 @@
 ﻿using NUnit.Framework;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 
 namespace RTC.Tests
 {
     [TestFixture]
-    public class TestObjects
+    public class TestSpheres
     {
         [TestCase(1, 0, 0)]
         [TestCase(0, 1, 0)]

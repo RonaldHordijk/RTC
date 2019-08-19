@@ -2,6 +2,7 @@
 using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
 
 namespace RTC.Tests
@@ -17,7 +18,7 @@ namespace RTC.Tests
             var world = new World();
 
             Assert.IsNull(world.Light);
-            Assert.AreEqual(0, world.Objects.Count);
+            Assert.AreEqual(0, world.Shapes.Count);
         }
 
         [Test]
@@ -26,7 +27,7 @@ namespace RTC.Tests
             var world = WorldBuilder.DefaultWorld();
 
             Assert.AreEqual(new PointLight(Tuple.Point(-10, 10, -10), new Color(1, 1, 1)), world.Light);
-            Assert.IsTrue(world.Objects.Contains(new Sphere
+            Assert.IsTrue(world.Shapes.Contains(new Sphere
             {
                 Material = new Material
                 {
@@ -35,7 +36,7 @@ namespace RTC.Tests
                     Specular = 0.2
                 }
             }));
-            Assert.IsTrue(world.Objects.Contains(new Sphere
+            Assert.IsTrue(world.Shapes.Contains(new Sphere
             {
                 Transform = Matrix4.Scaling(0.5, 0.5, 0.5)
             }));
@@ -66,7 +67,7 @@ namespace RTC.Tests
             var comp = Computation.Prepare(i, ray);
 
             Assert.AreEqual(comp.Distance, i.Distance);
-            Assert.AreEqual(comp.Object, i.Object);
+            Assert.AreEqual(comp.Shape, i.Shape);
             Assert.AreEqual(comp.Point, Tuple.Point(0, 0, -1));
             Assert.AreEqual(comp.EyeVector, Tuple.Vector(0, 0, -1));
             Assert.AreEqual(comp.NormalVector, Tuple.Vector(0, 0, -1));
@@ -93,7 +94,7 @@ namespace RTC.Tests
         {
             var world = WorldBuilder.DefaultWorld();
             var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
-            var sphere = world.Objects[0];
+            var sphere = world.Shapes[0];
             var i = new Intersection(4, sphere);
 
             var comp = Computation.Prepare(i, ray);
@@ -108,7 +109,7 @@ namespace RTC.Tests
             var world = WorldBuilder.DefaultWorld();
             world.Light = new PointLight(Tuple.Point(0, 0.25, 0), new Color(1, 1, 1));
             var ray = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 0, 1));
-            var sphere = world.Objects[1];
+            var sphere = world.Shapes[1];
             var i = new Intersection(0.5, sphere);
 
             var comp = Computation.Prepare(i, ray);
@@ -123,8 +124,8 @@ namespace RTC.Tests
             var world = new World();
             world.Light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
 
-            world.Objects.Add(new Sphere());
-            world.Objects.Add(new Sphere
+            world.Shapes.Add(new Sphere());
+            world.Shapes.Add(new Sphere
             {
                 Transform = Matrix4.Translation(0, 0, 10)
             });
@@ -133,7 +134,7 @@ namespace RTC.Tests
             {
                 Transform = Matrix4.Translation(0, 0, 10)
             };
-            world.Objects.Add(s2);
+            world.Shapes.Add(s2);
 
             var ray = new Ray(Tuple.Point(0, 0, 5), Tuple.Vector(0, 0, 1));
             var i = new Intersection(4, s2);
@@ -174,12 +175,12 @@ namespace RTC.Tests
         public void TestColorAtBehindRay()
         {
             var world = WorldBuilder.DefaultWorld();
-            world.Objects[0].Material.Ambient = 1;
-            world.Objects[1].Material.Ambient = 1;
+            world.Shapes[0].Material.Ambient = 1;
+            world.Shapes[1].Material.Ambient = 1;
 
             var ray = new Ray(Tuple.Point(0, 0, 0.75), Tuple.Vector(0, 0, -1));
 
-            Assert.AreEqual(world.Objects[1].Material.Color, world.ColorAt(ray));
+            Assert.AreEqual(world.Shapes[1].Material.Color, world.ColorAt(ray));
         }
     }
 }

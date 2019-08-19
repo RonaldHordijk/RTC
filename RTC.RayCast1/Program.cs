@@ -1,6 +1,7 @@
 ﻿using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 
 namespace RTC.RayCast1
 {

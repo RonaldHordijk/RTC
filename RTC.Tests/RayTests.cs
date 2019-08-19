@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 
 namespace RTC.Tests.Rays
 {
@@ -94,7 +95,7 @@ namespace RTC.Tests.Rays
             var intersection = new Intersection(4.5, sphere);
 
             Assert.AreEqual(intersection.Distance, 4.5, Epsilon);
-            Assert.AreEqual(intersection.Object, sphere);
+            Assert.AreEqual(intersection.Shape, sphere);
         }
 
         [Test]
@@ -124,8 +125,8 @@ namespace RTC.Tests.Rays
 
             var xs = sphere.Intersect(ray);
             Assert.AreEqual(xs.Count, 2);
-            Assert.AreEqual(xs[0].Object, sphere);
-            Assert.AreEqual(xs[1].Object, sphere);
+            Assert.AreEqual(xs[0].Shape, sphere);
+            Assert.AreEqual(xs[1].Shape, sphere);
         }
 
         [Test]
@@ -176,7 +177,7 @@ namespace RTC.Tests.Rays
                 i1
             };
 
-            Assert.IsNull(intersections.Hit()?.Object);
+            Assert.IsNull(intersections.Hit()?.Shape);
         }
 
         [Test]

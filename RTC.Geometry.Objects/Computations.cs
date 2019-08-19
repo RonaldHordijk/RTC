@@ -1,4 +1,6 @@
 ﻿
+using RTC.Geometry.Objects.Shapes;
+
 namespace RTC.Geometry.Objects
 {
     public class Computation
@@ -6,7 +8,7 @@ namespace RTC.Geometry.Objects
         private const double Epsilon = 0.00001;
 
         public double Distance { get; set; }
-        public object Object { get; set; }
+        public Shape Shape { get; set; }
         public Tuple Point { get; set; }
         public Tuple OverPoint { get; set; }
         public Tuple EyeVector { get; set; }
@@ -17,7 +19,7 @@ namespace RTC.Geometry.Objects
         {
             var point = ray.Position(i.Distance);
             var eyeVector = -ray.Direction;
-            var normalVector = (i.Object as Sphere)?.Normal(point) ?? default;
+            var normalVector = i.Shape?.Normal(point) ?? default;
             bool inside = false;
 
             if (Tuple.Dot(normalVector, eyeVector) < 0)
@@ -29,7 +31,7 @@ namespace RTC.Geometry.Objects
             return new Computation
             {
                 Distance = i.Distance,
-                Object = i.Object,
+                Shape = i.Shape,
                 Point = point,
                 OverPoint = point + Epsilon * normalVector,
                 EyeVector = eyeVector,

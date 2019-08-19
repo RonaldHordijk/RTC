@@ -1,14 +1,16 @@
-﻿namespace RTC.Geometry.Objects
+﻿using RTC.Geometry.Objects.Shapes;
+
+namespace RTC.Geometry.Objects
 {
     public class Intersection
     {
         public double Distance { get; }
-        public object Object { get; }
+        public Shape Shape { get; }
 
-        public Intersection(double distance, object o)
+        public Intersection(double distance, Shape s)
         {
             Distance = distance;
-            Object = o;
+            Shape = s;
         }
     }
 }

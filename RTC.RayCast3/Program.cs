@@ -1,6 +1,7 @@
 ﻿using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
 using System;
 using Tuple = RTC.Geometry.Tuple;
@@ -80,7 +81,7 @@ namespace RTC.RayCast3
             var world = new World
             {
                 Light = new PointLight(Tuple.Point(-10, 10, -10), new Color(1, 1, 1)),
-                Objects = { floor, leftWall, rightWall, middle, left, right }
+                Shapes = { floor, leftWall, rightWall, middle, left, right }
             };
 
             var cam = new Camera(width, height, Math.PI / 3)

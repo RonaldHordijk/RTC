@@ -1,6 +1,7 @@
 ﻿using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
 
 namespace RTC.RayCast2
@@ -38,7 +39,7 @@ namespace RTC.RayCast2
                     if (intersections.Count > 0)
                     {
                         var hit = intersections.Hit();
-                        var hitObject = hit.Object as Sphere;
+                        var hitObject = hit.Shape;
                         var point = ray.Position(hit.Distance);
                         var normal = hitObject.Normal(point);
                         var eye = -ray.Direction;

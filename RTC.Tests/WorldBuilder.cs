@@ -1,6 +1,7 @@
 ﻿using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 
 namespace RTC.Tests
 {
@@ -11,7 +12,7 @@ namespace RTC.Tests
             return new World
             {
                 Light = new PointLight(Tuple.Point(-10, 10, -10), new Color(1, 1, 1)),
-                Objects =
+                Shapes =
                 {
                     new Sphere
                         {

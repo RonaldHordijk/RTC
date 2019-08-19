@@ -1,4 +1,5 @@
 ﻿using RTC.Drawing;
+using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ namespace RTC.Geometry.Objects
     public class World
     {
         public PointLight Light { get; set; }
-        public List<Sphere> Objects { get; set; } = new List<Sphere>();
+        public List<Shape> Shapes { get; set; } = new List<Shape>();
 
         public Intersections Intersect(Ray ray)
         {
             var result = new Intersections();
 
-            result.AddRange(Objects
+            result.AddRange(Shapes
                 .Select(o => o.Intersect(ray))
                 .SelectMany(i => i));
 
