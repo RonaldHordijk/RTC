@@ -2,12 +2,6 @@
 using RTC.Geometry;
 using RTC.Geometry.Objects;
 using RTC.Geometry.Objects.Shapes;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RTC.Tests
 {
@@ -16,14 +10,17 @@ namespace RTC.Tests
     {
         class TestAShape : Shape
         {
-            public override Intersections Intersect(Ray ray)
+            public Ray SavedRay { get; set; }
+
+            protected override Intersections LocalIntersection(Ray rayTransformed)
             {
-                throw new NotImplementedException();
+                SavedRay = rayTransformed;
+                return null;
             }
 
-            public override RTC.Geometry.Tuple Normal(RTC.Geometry.Tuple worldPoint)
+            protected override Tuple LocalNormal(Tuple objectPoint)
             {
-                throw new NotImplementedException();
+                return Tuple.Vector(objectPoint.X, objectPoint.Y, objectPoint.Z);
             }
         }
 
@@ -64,6 +61,63 @@ namespace RTC.Tests
             shape.Transform = Matrix4.Translation(2, 3, 4);
 
             Assert.AreEqual(Matrix4.Translation(2, 3, 4), shape.Transform);
+        }
+
+
+        [Test]
+        public void TestIntersectScaledRay()
+        {
+            var shape = new TestAShape
+            {
+                Transform = Matrix4.Scaling(2, 2, 2)
+            };
+            var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
+
+            shape.Intersect(ray);
+
+            Assert.AreEqual(Tuple.Point(0, 0, -2.5), shape.SavedRay.Origin);
+            Assert.AreEqual(Tuple.Vector(0, 0, 0.5), shape.SavedRay.Direction);
+        }
+
+        [Test]
+        public void TestIntersectTranslatedShapeRay()
+        {
+            var shape = new TestAShape
+            {
+                Transform = Matrix4.Translation(5, 0, 0)
+            };
+            var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
+
+            shape.Intersect(ray);
+
+            Assert.AreEqual(Tuple.Point(-5, 0, -5), shape.SavedRay.Origin);
+            Assert.AreEqual(Tuple.Vector(0, 0, 1), shape.SavedRay.Direction);
+        }
+
+        [Test]
+        public void TestNormalTranslatedShape()
+        {
+            var shape = new TestAShape
+            {
+                Transform = Matrix4.Translation(0, 1, 0)
+            };
+
+            var n = shape.Normal(Tuple.Point(0, 1.70711, -0.70711));
+
+            Assert.AreEqual(Tuple.Vector(0, 0.70711, -0.70711), n);
+        }
+
+        [Test]
+        public void TestNormalTransFormedShape()
+        {
+            var shape = new TestAShape
+            {
+                Transform = Matrix4.Scaling(1, 0.5, 1) * Matrix4.RotationZ(System.Math.PI/5)
+            };
+
+            var n = shape.Normal(Tuple.Point(0, 0.70711, -0.70711));
+
+            Assert.AreEqual(Tuple.Vector(0, 0.97014, -0.24254), n);
         }
     }
 }

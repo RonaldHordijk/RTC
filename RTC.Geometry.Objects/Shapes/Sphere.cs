@@ -3,13 +3,11 @@
 {
     public class Sphere : Shape
     {
-        public override Intersections Intersect(Ray ray)
+        protected override Intersections LocalIntersection(Ray rayTransformed)
         {
-            var rayTransFormed = ray.Transform(Transform.Inverse());
-
-            var sphereToRay = Tuple.Vector(rayTransFormed.Origin);
-            var a = Tuple.Dot(rayTransFormed.Direction, rayTransFormed.Direction);
-            var b = 2 * Tuple.Dot(rayTransFormed.Direction, sphereToRay);
+            var sphereToRay = Tuple.Vector(rayTransformed.Origin);
+            var a = Tuple.Dot(rayTransformed.Direction, rayTransformed.Direction);
+            var b = 2 * Tuple.Dot(rayTransformed.Direction, sphereToRay);
             var c = Tuple.Dot(sphereToRay, sphereToRay) - 1.0;
 
             var discriminant = (b * b) - (4 * a * c);
@@ -30,15 +28,9 @@
                     new Intersection(t1, this) };
         }
 
-        public override Tuple Normal(Tuple worldPoint)
+        protected override Tuple LocalNormal(Tuple objectPoint)
         {
-            var objectPoint = Transform.Inverse() * worldPoint;
-            var objectNormal = Tuple.Vector(objectPoint.X, objectPoint.Y, objectPoint.Z);
-
-            var worldNormal = Transform.Inverse().Transpose * objectNormal;
-            worldNormal.W = 0;
-
-            return worldNormal.Normalized();
+            return Tuple.Vector(objectPoint.X, objectPoint.Y, objectPoint.Z);
         }
     }
 }

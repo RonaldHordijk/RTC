@@ -30,7 +30,25 @@
 
         public static bool operator !=(Shape s1, Shape s2) => !(s1 == s2);
 
-        public abstract Intersections Intersect(Ray ray);
-        public abstract Tuple Normal(Tuple worldPoint);
+        public Intersections Intersect(Ray ray)
+        {
+            var rayTransformed = ray.Transform(Transform.Inverse());
+            return LocalIntersection(rayTransformed);
+        }
+
+        protected abstract Intersections LocalIntersection(Ray rayTransformed);
+
+        public Tuple Normal(Tuple worldPoint)
+        {
+            var objectPoint = Transform.Inverse() * worldPoint;
+            var objectNormal = LocalNormal(objectPoint);
+
+            var worldNormal = Transform.Inverse().Transpose * objectNormal;
+            worldNormal.W = 0;
+
+            return worldNormal.Normalized();
+        }
+
+        protected abstract Tuple LocalNormal(Tuple objectPoint);
     }
 }
