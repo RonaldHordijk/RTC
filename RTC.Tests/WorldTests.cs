@@ -20,34 +20,10 @@ namespace RTC.Tests
             Assert.AreEqual(0, world.Objects.Count);
         }
 
-        private World DefaultWorld()
-        {
-            return new World
-            {
-                Light = new PointLight(Tuple.Point(-10, 10, -10), new Color(1, 1, 1)),
-                Objects =
-                {
-                    new Sphere
-                        {
-                            Material = new Material
-                            {
-                                Color = new Color(0.8, 1.0, 0.6),
-                                Diffuse = 0.7,
-                                Specular = 0.2
-                            }
-                        },
-                    new Sphere
-                        {
-                            Transform = Matrix4.Scaling(0.5, 0.5, 0.5)
-                        }
-                }
-            };
-        }
-
         [Test]
         public void TestDefaultWorld()
         {
-            var world = DefaultWorld();
+            var world = WorldBuilder.DefaultWorld();
 
             Assert.AreEqual(new PointLight(Tuple.Point(-10, 10, -10), new Color(1, 1, 1)), world.Light);
             Assert.IsTrue(world.Objects.Contains(new Sphere
@@ -68,7 +44,7 @@ namespace RTC.Tests
         [Test]
         public void TestDefaultWorldIntersect()
         {
-            var world = DefaultWorld();
+            var world = WorldBuilder.DefaultWorld();
             var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
 
             var xs = world.Intersect(ray);
@@ -115,7 +91,7 @@ namespace RTC.Tests
         [Test]
         public void TestShadeIntersection()
         {
-            var world = DefaultWorld();
+            var world = WorldBuilder.DefaultWorld();
             var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
             var sphere = world.Objects[0];
             var i = new Intersection(4, sphere);
@@ -129,7 +105,7 @@ namespace RTC.Tests
         [Test]
         public void TestShadeIntersectionInside()
         {
-            var world = DefaultWorld();
+            var world = WorldBuilder.DefaultWorld();
             world.Light = new PointLight(Tuple.Point(0, 0.25, 0), new Color(1, 1, 1));
             var ray = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 0, 1));
             var sphere = world.Objects[1];
@@ -142,9 +118,53 @@ namespace RTC.Tests
         }
 
         [Test]
+        public void TestIntersectionInShade()
+        {
+            var world = new World();
+            world.Light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
+
+            world.Objects.Add(new Sphere());
+            world.Objects.Add(new Sphere
+            {
+                Transform = Matrix4.Translation(0, 0, 10)
+            });
+
+            var s2 = new Sphere
+            {
+                Transform = Matrix4.Translation(0, 0, 10)
+            };
+            world.Objects.Add(s2);
+
+            var ray = new Ray(Tuple.Point(0, 0, 5), Tuple.Vector(0, 0, 1));
+            var i = new Intersection(4, s2);
+
+            var comp = Computation.Prepare(i, ray);
+            var color = LightUtil.ShadeHit(world, comp);
+
+            Assert.AreEqual(new Color(0.1, 0.1, 0.1), color);
+        }
+
+        [Test]
+        public void IntersectionOn()
+        {
+            var s = new Sphere
+            {
+                Transform = Matrix4.Translation(0, 0, 1)
+            };
+
+            var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
+            var i = new Intersection(5, s);
+
+            var comp = Computation.Prepare(i, ray);
+
+            Assert.That(comp.OverPoint.Z < 0.5 * Epsilon);
+            Assert.That(comp.Point.Z > comp.OverPoint.Z);
+        }
+
+        [Test]
         public void TestColorAtMiss()
         {
-            var world = DefaultWorld();
+            var world = WorldBuilder.DefaultWorld();
             var ray = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 1, 0));
 
             Assert.AreEqual(new Color(0, 0, 0), world.ColorAt(ray));
@@ -153,7 +173,7 @@ namespace RTC.Tests
         [Test]
         public void TestColorAtBehindRay()
         {
-            var world = DefaultWorld();
+            var world = WorldBuilder.DefaultWorld();
             world.Objects[0].Material.Ambient = 1;
             world.Objects[1].Material.Ambient = 1;
 

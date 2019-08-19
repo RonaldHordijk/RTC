@@ -4,12 +4,16 @@ namespace RTC.Geometry.Objects.Utils
 {
     public static class LightUtil
     {
-        public static Color Lighting(Material material, PointLight light, Tuple position, Tuple eye, Tuple normal)
+        public static Color Lighting(Material material, PointLight light, Tuple position, Tuple eye, Tuple normal, bool inShadow)
         {
             var effectiveColor = material.Color * light.Intensity;
             var lightVector = Tuple.Normalize(light.Position - position);
 
             var ambient = material.Ambient * effectiveColor;
+
+            if (inShadow)
+                return ambient;
+
             var lightNormalDot = Tuple.Dot(lightVector, normal);
 
             if (lightNormalDot <= 0)
@@ -32,11 +36,14 @@ namespace RTC.Geometry.Objects.Utils
 
         public static Color ShadeHit(World world, Computation comps)
         {
+            var Shadowed = ShadowUtil.IsShadowed(world, comps.OverPoint);
+
             return Lighting((comps.Object as Sphere)?.Material,
                 world.Light,
                 comps.Point,
                 comps.EyeVector,
-                comps.NormalVector);
+                comps.NormalVector,
+                Shadowed);
         }
     }
 }

@@ -3,9 +3,12 @@ namespace RTC.Geometry.Objects
 {
     public class Computation
     {
+        private const double Epsilon = 0.00001;
+
         public double Distance { get; set; }
         public object Object { get; set; }
         public Tuple Point { get; set; }
+        public Tuple OverPoint { get; set; }
         public Tuple EyeVector { get; set; }
         public Tuple NormalVector { get; set; }
         public bool Inside { get; set; }
@@ -28,6 +31,7 @@ namespace RTC.Geometry.Objects
                 Distance = i.Distance,
                 Object = i.Object,
                 Point = point,
+                OverPoint = point + Epsilon * normalVector,
                 EyeVector = eyeVector,
                 NormalVector = normalVector,
                 Inside = inside

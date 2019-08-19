@@ -42,7 +42,7 @@ namespace RTC.Tests
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal);
+            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(1.9, 1.9, 1.9), res);
         }
@@ -57,7 +57,7 @@ namespace RTC.Tests
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal);
+            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(1.0, 1.0, 1.0), res);
         }
@@ -72,7 +72,7 @@ namespace RTC.Tests
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 10, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal);
+            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(0.7364, 0.7364, 0.7364), res);
         }
@@ -87,7 +87,7 @@ namespace RTC.Tests
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 10, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal);
+            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(1.6364, 1.6364, 1.6364), res);
         }
@@ -102,7 +102,22 @@ namespace RTC.Tests
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 0, 10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal);
+            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
+
+            Assert.AreEqual(new Color(0.1, 0.1, 0.1), res);
+        }
+
+        [Test]
+        public void TestLightingInShadow()
+        {
+            var material = new Material();
+            var position = Tuple.Point(0, 0, 0);
+
+            var eye = Tuple.Vector(0, 0, -1);
+            var normal = Tuple.Vector(0, 0, -1);
+            var light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
+
+            var res = LightUtil.Lighting(material, light, position, eye, normal, true);
 
             Assert.AreEqual(new Color(0.1, 0.1, 0.1), res);
         }

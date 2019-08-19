@@ -31,8 +31,8 @@ namespace RTC.Geometry
 
         public override bool Equals(object obj)
         {
-            if (obj is Tuple)
-                return this == (Tuple)obj;
+            if (obj is Tuple tuple)
+                return this == tuple;
 
             return false;
         }

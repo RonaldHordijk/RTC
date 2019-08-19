@@ -43,7 +43,7 @@ namespace RTC.RayCast2
                         var normal = hitObject.Normal(point);
                         var eye = -ray.Direction;
 
-                        var color = LightUtil.Lighting(hitObject.Material, light, point, eye, normal);
+                        var color = LightUtil.Lighting(hitObject.Material, light, point, eye, normal, false);
 
                         canvas.SetPixel(x, y, color);
                     }
