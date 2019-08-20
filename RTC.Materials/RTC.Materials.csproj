@@ -7,7 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RTC.Drawing\RTC.Drawing.csproj" />
     <ProjectReference Include="..\RTC.Geometry\RTC.Geometry.csproj" />
-    <ProjectReference Include="..\RTC.Materials\RTC.Materials.csproj" />
   </ItemGroup>
 
 </Project>

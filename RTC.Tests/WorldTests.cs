@@ -4,6 +4,7 @@ using RTC.Geometry;
 using RTC.Geometry.Objects;
 using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
+using RTC.Materials;
 
 namespace RTC.Tests
 {

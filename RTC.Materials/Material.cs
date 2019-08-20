@@ -1,6 +1,6 @@
 ﻿using RTC.Drawing;
 
-namespace RTC.Geometry.Objects
+namespace RTC.Materials
 {
     public class Material
     {
@@ -15,8 +15,8 @@ namespace RTC.Geometry.Objects
 
         public override bool Equals(object obj)
         {
-            if (obj is Material)
-                return this == (Material)obj;
+            if (obj is Material material)
+                return this == material;
 
             return false;
         }

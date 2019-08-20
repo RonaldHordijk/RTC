@@ -2,13 +2,14 @@
 using RTC.Geometry;
 using RTC.Geometry.Objects;
 using RTC.Geometry.Objects.Shapes;
+using RTC.Materials;
 
 namespace RTC.Tests
 {
     [TestFixture]
     public class TestShape
     {
-        class TestAShape : Shape
+        public class TestAShape : Shape
         {
             public Ray SavedRay { get; set; }
 
@@ -63,7 +64,6 @@ namespace RTC.Tests
             Assert.AreEqual(Matrix4.Translation(2, 3, 4), shape.Transform);
         }
 
-
         [Test]
         public void TestIntersectScaledRay()
         {
@@ -112,7 +112,7 @@ namespace RTC.Tests
         {
             var shape = new TestAShape
             {
-                Transform = Matrix4.Scaling(1, 0.5, 1) * Matrix4.RotationZ(System.Math.PI/5)
+                Transform = Matrix4.Scaling(1, 0.5, 1) * Matrix4.RotationZ(System.Math.PI / 5)
             };
 
             var n = shape.Normal(Tuple.Point(0, 0.70711, -0.70711));

@@ -1,14 +1,12 @@
-﻿using System;
-using RTC.Drawing;
-using RTC.Geometry.Objects.Shapes;
+﻿using RTC.Drawing;
+using RTC.Geometry;
 
-namespace RTC.Geometry.Objects
+namespace RTC.Materials
 {
-    public class StripedPattern
+    public class StripedPattern : AbstractPattern
     {
         public Color A { get; set; }
         public Color B { get; set; }
-        public Matrix4 Transform { get; set; } = Matrix4.Identity;
 
         public StripedPattern(Color a, Color b)
         {
@@ -16,23 +14,15 @@ namespace RTC.Geometry.Objects
             B = b;
         }
 
-        public Color ColorAt(Tuple pos)
+        public override Color ColorAt(Tuple pos)
         {
             return ((long)System.Math.Floor(pos.X)) % 2 == 0 ? A : B;
         }
 
-        public Color ColorAtObject(Shape shape, Tuple worldPos)
-        {
-            var objectPos = shape.Transform.Inverse() * worldPos;
-            var patternPos= Transform.Inverse() * objectPos;
-
-            return ColorAt(patternPos);
-        }
-
         public override bool Equals(object obj)
         {
-            if (obj is StripedPattern)
-                return this == (StripedPattern)obj;
+            if (obj is StripedPattern stripedPattern)
+                return this == stripedPattern;
 
             return false;
         }

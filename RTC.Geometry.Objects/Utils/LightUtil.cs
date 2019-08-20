@@ -1,5 +1,6 @@
 ﻿using RTC.Drawing;
 using RTC.Geometry.Objects.Shapes;
+using RTC.Materials;
 
 namespace RTC.Geometry.Objects.Utils
 {
@@ -10,7 +11,7 @@ namespace RTC.Geometry.Objects.Utils
             var color = material.Color;
 
             if (!(material.Pattern is null))
-                color = material.Pattern.ColorAtObject(shape, position);
+                color = material.Pattern.ColorAtObject(shape.WorldToObject(position));
 
             var effectiveColor = color * light.Intensity;
             var lightVector = Tuple.Normalize(light.Position - position);

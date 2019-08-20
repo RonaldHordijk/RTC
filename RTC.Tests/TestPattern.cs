@@ -4,6 +4,7 @@ using RTC.Geometry;
 using RTC.Geometry.Objects;
 using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
+using RTC.Materials;
 
 namespace RTC.Tests
 {
@@ -84,7 +85,7 @@ namespace RTC.Tests
             };
             var pattern = new StripedPattern(_white, _black);
 
-            Assert.AreEqual(_white, pattern.ColorAtObject(o, Tuple.Point(1.5, 0, 0)));
+            Assert.AreEqual(_white, pattern.ColorAtObject(o.WorldToObject(Tuple.Point(1.5, 0, 0))));
         }
 
         [Test]
@@ -96,7 +97,7 @@ namespace RTC.Tests
                 Transform = Matrix4.Scaling(2, 2, 2)
             };
 
-            Assert.AreEqual(_white, pattern.ColorAtObject(o, Tuple.Point(1.5, 0, 0)));
+            Assert.AreEqual(_white, pattern.ColorAtObject(o.WorldToObject(Tuple.Point(1.5, 0, 0))));
         }
 
         [Test]
@@ -111,8 +112,7 @@ namespace RTC.Tests
                 Transform = Matrix4.Translation(0.5, 0, 0)
             };
 
-
-            Assert.AreEqual(_white, pattern.ColorAtObject(o, Tuple.Point(2.5, 0, 0)));
+            Assert.AreEqual(_white, pattern.ColorAtObject(o.WorldToObject(Tuple.Point(2.5, 0, 0))));
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using RTC.Materials;
+﻿using RTC.Geometry;
+using RTC.Geometry.Objects;
+using RTC.Materials;
 
-namespace RTC.Geometry.Objects.Shapes
+namespace RTC.Abstract
 {
     public abstract class Shape
     {
@@ -50,8 +52,6 @@ namespace RTC.Geometry.Objects.Shapes
 
             return worldNormal.Normalized();
         }
-
-        public Tuple WorldToObject(Tuple worldPos) => Transform.Inverse() * worldPos;
 
         protected abstract Tuple LocalNormal(Tuple objectPoint);
     }

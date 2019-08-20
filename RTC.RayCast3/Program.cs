@@ -3,6 +3,7 @@ using RTC.Geometry;
 using RTC.Geometry.Objects;
 using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
+using RTC.Materials;
 using System;
 using Tuple = RTC.Geometry.Tuple;
 
