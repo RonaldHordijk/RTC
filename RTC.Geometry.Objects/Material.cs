@@ -11,6 +11,7 @@ namespace RTC.Geometry.Objects
         public double Diffuse { get; set; } = 0.9;
         public double Specular { get; set; } = 0.9;
         public double Shininess { get; set; } = 200;
+        public StripedPattern Pattern { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -28,6 +29,7 @@ namespace RTC.Geometry.Objects
         public static bool operator ==(Material m1, Material m2)
         {
             return (m1.Color == m2.Color)
+                && (m1.Pattern == m2.Pattern)
                 && System.Math.Abs(m1.Ambient - m2.Ambient) < Epsilon
                 && System.Math.Abs(m1.Diffuse - m2.Diffuse) < Epsilon
                 && System.Math.Abs(m1.Specular - m2.Specular) < Epsilon

@@ -1,12 +1,18 @@
 ﻿using RTC.Drawing;
+using RTC.Geometry.Objects.Shapes;
 
 namespace RTC.Geometry.Objects.Utils
 {
     public static class LightUtil
     {
-        public static Color Lighting(Material material, PointLight light, Tuple position, Tuple eye, Tuple normal, bool inShadow)
+        public static Color Lighting(Material material, Shape shape, PointLight light, Tuple position, Tuple eye, Tuple normal, bool inShadow)
         {
-            var effectiveColor = material.Color * light.Intensity;
+            var color = material.Color;
+
+            if (!(material.Pattern is null))
+                color = material.Pattern.ColorAtObject(shape, position);
+
+            var effectiveColor = color * light.Intensity;
             var lightVector = Tuple.Normalize(light.Position - position);
 
             var ambient = material.Ambient * effectiveColor;
@@ -38,7 +44,8 @@ namespace RTC.Geometry.Objects.Utils
         {
             var Shadowed = ShadowUtil.IsShadowed(world, comps.OverPoint);
 
-            return Lighting((comps.Shape)?.Material,
+            return Lighting(comps.Shape?.Material,
+                comps.Shape,
                 world.Light,
                 comps.Point,
                 comps.EyeVector,

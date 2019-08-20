@@ -2,6 +2,7 @@
 using RTC.Drawing;
 using RTC.Geometry;
 using RTC.Geometry.Objects;
+using RTC.Geometry.Objects.Shapes;
 using RTC.Geometry.Objects.Utils;
 
 namespace RTC.Tests
@@ -36,13 +37,17 @@ namespace RTC.Tests
         public void TestLightingStraightReflect()
         {
             var material = new Material();
+            var s = new Sphere
+            {
+                Material = material
+            };
             var position = Tuple.Point(0, 0, 0);
 
             var eye = Tuple.Vector(0, 0, -1);
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
+            var res = LightUtil.Lighting(material, s, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(1.9, 1.9, 1.9), res);
         }
@@ -51,13 +56,17 @@ namespace RTC.Tests
         public void TestLightingAngleReflect()
         {
             var material = new Material();
+            var s = new Sphere
+            {
+                Material = material
+            };
             var position = Tuple.Point(0, 0, 0);
 
             var eye = Tuple.Vector(0, 0.5 * System.Math.Sqrt(2), -0.5 * System.Math.Sqrt(2));
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
+            var res = LightUtil.Lighting(material, s, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(1.0, 1.0, 1.0), res);
         }
@@ -66,13 +75,17 @@ namespace RTC.Tests
         public void TestLightingAngleReflect2()
         {
             var material = new Material();
+            var s = new Sphere
+            {
+                Material = material
+            };
             var position = Tuple.Point(0, 0, 0);
 
             var eye = Tuple.Vector(0, 0, -1);
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 10, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
+            var res = LightUtil.Lighting(material, s, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(0.7364, 0.7364, 0.7364), res);
         }
@@ -81,13 +94,17 @@ namespace RTC.Tests
         public void TestLightingAngleReflectHighlight()
         {
             var material = new Material();
+            var s = new Sphere
+            {
+                Material = material
+            };
             var position = Tuple.Point(0, 0, 0);
 
             var eye = Tuple.Vector(0, -0.5 * System.Math.Sqrt(2), -0.5 * System.Math.Sqrt(2));
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 10, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
+            var res = LightUtil.Lighting(material, s, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(1.6364, 1.6364, 1.6364), res);
         }
@@ -96,13 +113,17 @@ namespace RTC.Tests
         public void TestLightingAngleBehind()
         {
             var material = new Material();
+            var s = new Sphere
+            {
+                Material = material
+            };
             var position = Tuple.Point(0, 0, 0);
 
             var eye = Tuple.Vector(0, 0, -1);
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 0, 10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal, false);
+            var res = LightUtil.Lighting(material, s, light, position, eye, normal, false);
 
             Assert.AreEqual(new Color(0.1, 0.1, 0.1), res);
         }
@@ -111,13 +132,17 @@ namespace RTC.Tests
         public void TestLightingInShadow()
         {
             var material = new Material();
+            var s = new Sphere
+            {
+                Material = material
+            };
             var position = Tuple.Point(0, 0, 0);
 
             var eye = Tuple.Vector(0, 0, -1);
             var normal = Tuple.Vector(0, 0, -1);
             var light = new PointLight(Tuple.Point(0, 0, -10), new Color(1, 1, 1));
 
-            var res = LightUtil.Lighting(material, light, position, eye, normal, true);
+            var res = LightUtil.Lighting(material, s, light, position, eye, normal, true);
 
             Assert.AreEqual(new Color(0.1, 0.1, 0.1), res);
         }
