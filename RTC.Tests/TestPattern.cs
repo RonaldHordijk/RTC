@@ -14,6 +14,15 @@ namespace RTC.Tests
         private readonly Color _white = new Color(1, 1, 1);
         private readonly Color _black = new Color(0, 0, 0);
 
+
+        public class Test_Pattern : AbstractPattern
+        {
+            public override Color ColorAt(Tuple pos)
+            {
+                return new Color(pos.X, pos.Y, pos.Z);
+            }
+        }
+
         [Test]
         public void TestCreate()
         {
@@ -113,6 +122,65 @@ namespace RTC.Tests
             };
 
             Assert.AreEqual(_white, pattern.ColorAtObject(o.WorldToObject(Tuple.Point(2.5, 0, 0))));
+        }
+
+        [Test]
+        public void TestDefaultTransformation()
+        {
+            var p = new Test_Pattern();
+
+            Assert.AreEqual(Matrix4.Identity, p.Transform);
+        }
+
+        [Test]
+        public void TestDefaultAssignTransformation()
+        {
+            var p = new Test_Pattern();
+            p.Transform = Matrix4.Translation(1, 2, 3);
+
+            Assert.AreEqual(Matrix4.Translation(1, 2, 3), p.Transform);
+        }
+
+        [Test]
+        public void TestDefaultObjectTransform()
+        {
+            var o = new Sphere
+            {
+                Transform = Matrix4.Scaling(2, 2, 2)
+            };
+            var pattern = new Test_Pattern();
+
+            var c = pattern.ColorAtObject(o.WorldToObject(Tuple.Point(2, 3, 4)));
+            Assert.AreEqual(new Color(1,1.5,2), c);
+        }
+
+        [Test]
+        public void TestDefaultPatternTransform()
+        {
+            var o = new Sphere();
+            var pattern = new Test_Pattern
+            {
+                Transform = Matrix4.Scaling(2, 2, 2)
+            };
+
+            var c = pattern.ColorAtObject(o.WorldToObject(Tuple.Point(2, 3, 4)));
+            Assert.AreEqual(new Color(1, 1.5, 2), c);
+        }
+
+        [Test]
+        public void TestDefaultObjectAndPatternTransform()
+        {
+            var o = new Sphere()
+            {
+                Transform = Matrix4.Scaling(2, 2, 2)
+            };
+            var pattern = new Test_Pattern
+            {
+                Transform = Matrix4.Translation(0.5, 1, 1.5)
+            };
+
+            var c = pattern.ColorAtObject(o.WorldToObject(Tuple.Point(2.5, 3, 3.5)));
+            Assert.AreEqual(new Color(0.75, 0.5, 0.25), c);
         }
     }
 }

@@ -34,11 +34,11 @@ namespace RTC.Materials
 
         public static bool operator ==(StripedPattern sp1, StripedPattern sp2)
         {
+            if (sp1 as AbstractPattern != sp2 as AbstractPattern)
+                return false;
+
             if ((sp1 is null) && (sp2 is null))
                 return true;
-
-            if ((sp1 is null) != (sp2 is null))
-                return false;
 
             return (sp1.A == sp2.A) && (sp1.B == sp2.B);
         }

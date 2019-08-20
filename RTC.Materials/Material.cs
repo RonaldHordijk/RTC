@@ -11,7 +11,7 @@ namespace RTC.Materials
         public double Diffuse { get; set; } = 0.9;
         public double Specular { get; set; } = 0.9;
         public double Shininess { get; set; } = 200;
-        public StripedPattern Pattern { get; set; }
+        public AbstractPattern Pattern { get; set; }
 
         public override bool Equals(object obj)
         {
