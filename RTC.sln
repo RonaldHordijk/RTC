@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast2", "RTC.RayCast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast3", "RTC.RayCast3\RTC.RayCast3.csproj", "{66E43DA2-9968-448E-A29D-2594E98BDBD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.RayCast4", "RTC.RayCast4\RTC.RayCast4.csproj", "{1B76CC0C-9469-4331-8CD3-310811271658}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast4", "RTC.RayCast4\RTC.RayCast4.csproj", "{1B76CC0C-9469-4331-8CD3-310811271658}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.RayCast5", "RTC.RayCast5\RTC.RayCast5.csproj", "{228B2728-0670-4EA6-B50C-3D5A8E612561}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast5", "RTC.RayCast5\RTC.RayCast5.csproj", "{228B2728-0670-4EA6-B50C-3D5A8E612561}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.Materials", "RTC.Materials\RTC.Materials.csproj", "{6F124AFC-C61D-406E-808D-A71F0F55BC59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.Materials", "RTC.Materials\RTC.Materials.csproj", "{6F124AFC-C61D-406E-808D-A71F0F55BC59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.RayCast6", "RTC.RayCast6\RTC.RayCast6.csproj", "{4733A05E-968D-4EED-BC0B-3B17AA98699A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{6F124AFC-C61D-406E-808D-A71F0F55BC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F124AFC-C61D-406E-808D-A71F0F55BC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F124AFC-C61D-406E-808D-A71F0F55BC59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4733A05E-968D-4EED-BC0B-3B17AA98699A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4733A05E-968D-4EED-BC0B-3B17AA98699A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4733A05E-968D-4EED-BC0B-3B17AA98699A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4733A05E-968D-4EED-BC0B-3B17AA98699A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,13 +5,29 @@ namespace RTC.Materials
 {
     public abstract class AbstractPattern
     {
-        public Matrix4 Transform { get; set; } = Matrix4.Identity;
+        private Matrix4 _transform = Matrix4.Identity;
+        private Matrix4 _transformInverse = Matrix4.Identity;
+
+
+        public Matrix4 Transform
+        {
+            get { return _transform; }
+            set {
+                _transform = value;
+                CalcInverse();
+            }
+        }
+
+        private void CalcInverse()
+        {
+            _transformInverse = Transform.Inverse();
+        }
 
         public abstract Color ColorAt(Tuple pos);
 
         public Color ColorAtObject(Tuple objectPos)
         {
-            var patternPos = Transform.Inverse() * objectPos;
+            var patternPos = _transformInverse * objectPos;
 
             return ColorAt(patternPos);
         }

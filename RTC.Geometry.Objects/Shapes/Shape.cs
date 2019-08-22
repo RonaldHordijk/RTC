@@ -4,7 +4,25 @@ namespace RTC.Geometry.Objects.Shapes
 {
     public abstract class Shape
     {
-        public Matrix4 Transform { get; set; } = Matrix4.Identity;
+        private Matrix4 _transform = Matrix4.Identity;
+
+        public Matrix4 Transform
+        {
+            get { return _transform; }
+            set
+            {
+                _transform = value;
+                CalcInverse();
+            }
+        }
+
+        public Matrix4 TransformInverse { get; private set; } = Matrix4.Identity;
+
+        private void CalcInverse()
+        {
+            TransformInverse = _transform.Inverse();
+        }
+
         public Material Material { get; set; } = new Material();
 
         public override bool Equals(object obj)
@@ -34,7 +52,7 @@ namespace RTC.Geometry.Objects.Shapes
 
         public Intersections Intersect(Ray ray)
         {
-            var rayTransformed = ray.Transform(Transform.Inverse());
+            var rayTransformed = ray.Transform(TransformInverse);
             return LocalIntersection(rayTransformed);
         }
 
@@ -42,16 +60,16 @@ namespace RTC.Geometry.Objects.Shapes
 
         public Tuple Normal(Tuple worldPoint)
         {
-            var objectPoint = Transform.Inverse() * worldPoint;
+            var objectPoint = TransformInverse * worldPoint;
             var objectNormal = LocalNormal(objectPoint);
 
-            var worldNormal = Transform.Inverse().Transpose * objectNormal;
+            var worldNormal = TransformInverse.Transpose * objectNormal;
             worldNormal.W = 0;
 
             return worldNormal.Normalized();
         }
 
-        public Tuple WorldToObject(Tuple worldPos) => Transform.Inverse() * worldPos;
+        public Tuple WorldToObject(Tuple worldPos) => TransformInverse * worldPos;
 
         protected abstract Tuple LocalNormal(Tuple objectPoint);
     }

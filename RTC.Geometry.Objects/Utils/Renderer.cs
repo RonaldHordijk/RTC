@@ -1,4 +1,5 @@
 ﻿using RTC.Drawing;
+using System.Threading.Tasks;
 
 namespace RTC.Geometry.Objects.Utils
 {
@@ -12,11 +13,12 @@ namespace RTC.Geometry.Objects.Utils
             {
                 progress?.Invoke((double)x / cam.HSize);
 
-                for (int y = 0; y < cam.VSize; y++)
+                Parallel.For(0, cam.VSize, y =>
+                //for (int y = 0; y < cam.VSize; y++)
                 {
                     var ray = cam.RayAt(x, y);
                     canvas.SetPixel(x, y, world.ColorAt(ray));
-                }
+                });
             }
 
             return canvas;
