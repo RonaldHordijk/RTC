@@ -151,7 +151,7 @@ namespace RTC.Tests
             var pattern = new Test_Pattern();
 
             var c = pattern.ColorAtObject(o.WorldToObject(Tuple.Point(2, 3, 4)));
-            Assert.AreEqual(new Color(1,1.5,2), c);
+            Assert.AreEqual(new Color(1, 1.5, 2), c);
         }
 
         [Test]
@@ -181,6 +181,58 @@ namespace RTC.Tests
 
             var c = pattern.ColorAtObject(o.WorldToObject(Tuple.Point(2.5, 3, 3.5)));
             Assert.AreEqual(new Color(0.75, 0.5, 0.25), c);
+        }
+
+        [Test]
+        public void TestGradientPatternTransform()
+        {
+            var pattern = new GradientPattern(_white, _black);
+
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0, 0, 0)));
+            Assert.AreEqual(new Color(0.75, 0.75, 0.75), pattern.ColorAt(Tuple.Point(0.25, 0, 0)));
+            Assert.AreEqual(new Color(0.5, 0.5, 0.5), pattern.ColorAt(Tuple.Point(0.5, 0, 0)));
+            Assert.AreEqual(new Color(0.25, 0.25, 0.25), pattern.ColorAt(Tuple.Point(1.75, 0, 0)));
+        }
+
+        [Test]
+        public void TestRingPatternTransform()
+        {
+            var pattern = new RingPattern(_white, _black);
+
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0, 0, 0)));
+            Assert.AreEqual(_black, pattern.ColorAt(Tuple.Point(1, 0, 0)));
+            Assert.AreEqual(_black, pattern.ColorAt(Tuple.Point(0, 0, 1)));
+            Assert.AreEqual(_black, pattern.ColorAt(Tuple.Point(0.708, 0, 0.708)));
+        }
+
+        [Test]
+        public void TestCheckerX()
+        {
+            var pattern = new CheckerPattern(_white, _black);
+
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0, 0, 0)));
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0.99, 0, 0)));
+            Assert.AreEqual(_black, pattern.ColorAt(Tuple.Point(1.01, 0, 0)));
+        }
+
+        [Test]
+        public void TestCheckerY()
+        {
+            var pattern = new CheckerPattern(_white, _black);
+
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0, 0, 0)));
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0, 0.99, 0)));
+            Assert.AreEqual(_black, pattern.ColorAt(Tuple.Point(0, 1.01, 0)));
+        }
+
+        [Test]
+        public void TestCheckerZ()
+        {
+            var pattern = new CheckerPattern(_white, _black);
+
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0, 0, 0)));
+            Assert.AreEqual(_white, pattern.ColorAt(Tuple.Point(0, 0, 0.99)));
+            Assert.AreEqual(_black, pattern.ColorAt(Tuple.Point(0, 0, 1.01)));
         }
     }
 }
