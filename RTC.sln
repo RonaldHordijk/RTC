@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast5", "RTC.RayCast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.Materials", "RTC.Materials\RTC.Materials.csproj", "{6F124AFC-C61D-406E-808D-A71F0F55BC59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.RayCast6", "RTC.RayCast6\RTC.RayCast6.csproj", "{4733A05E-968D-4EED-BC0B-3B17AA98699A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast6", "RTC.RayCast6\RTC.RayCast6.csproj", "{4733A05E-968D-4EED-BC0B-3B17AA98699A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTC.RayCast7", "RTC.RayCast7\RTC.RayCast7.csproj", "{5355014F-993E-4723-8B3F-56F138B94214}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTC.RayCast8", "RTC.RayCast8\RTC.RayCast8.csproj", "{86F4EE2C-9627-43B4-B6E7-EC76D1843597}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,14 @@ Global
 		{4733A05E-968D-4EED-BC0B-3B17AA98699A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4733A05E-968D-4EED-BC0B-3B17AA98699A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4733A05E-968D-4EED-BC0B-3B17AA98699A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5355014F-993E-4723-8B3F-56F138B94214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5355014F-993E-4723-8B3F-56F138B94214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5355014F-993E-4723-8B3F-56F138B94214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5355014F-993E-4723-8B3F-56F138B94214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F4EE2C-9627-43B4-B6E7-EC76D1843597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F4EE2C-9627-43B4-B6E7-EC76D1843597}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F4EE2C-9627-43B4-B6E7-EC76D1843597}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F4EE2C-9627-43B4-B6E7-EC76D1843597}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

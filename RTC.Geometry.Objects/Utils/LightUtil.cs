@@ -41,17 +41,22 @@ namespace RTC.Geometry.Objects.Utils
             return ambient + diffuse + specular;
         }
 
-        public static Color ShadeHit(World world, Computation comps)
+        public static Color ShadeHit(World world, Computation comps, int remaining = 5)
         {
             var Shadowed = ShadowUtil.IsShadowed(world, comps.OverPoint);
 
-            return Lighting(comps.Shape?.Material,
+            var surface = Lighting(comps.Shape?.Material,
                 comps.Shape,
                 world.Light,
                 comps.Point,
                 comps.EyeVector,
                 comps.NormalVector,
                 Shadowed);
+
+            var reflected = world.ReflectedColor(comps, remaining);
+            var refracted = world.RefractColor(comps, remaining);
+
+            return surface + reflected + refracted;
         }
     }
 }

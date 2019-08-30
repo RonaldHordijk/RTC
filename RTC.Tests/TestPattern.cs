@@ -14,7 +14,6 @@ namespace RTC.Tests
         private readonly Color _white = new Color(1, 1, 1);
         private readonly Color _black = new Color(0, 0, 0);
 
-
         public class Test_Pattern : AbstractPattern
         {
             public override Color ColorAt(Tuple pos)

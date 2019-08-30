@@ -12,6 +12,9 @@ namespace RTC.Materials
         public double Specular { get; set; } = 0.9;
         public double Shininess { get; set; } = 200;
         public AbstractPattern Pattern { get; set; }
+        public double Reflective { get; set; }
+        public double Transparency { get; set; }
+        public double RefractiveIndex { get; set; } = 1.0;
 
         public override bool Equals(object obj)
         {
