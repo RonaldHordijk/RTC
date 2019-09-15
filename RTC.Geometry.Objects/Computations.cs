@@ -95,5 +95,24 @@ namespace RTC.Geometry.Objects
 
             return (1.0, 1.0);
         }
+
+        public double Schlick()
+        {
+            var cosI = Tuple.Dot(EyeVector, NormalVector);
+            if (N1 > N2)
+            {
+                var nRatio = N1 / N2;
+                var sin2T = nRatio * nRatio * (1 - cosI * cosI);
+                if (sin2T > 1.0)
+                    return 1.0;
+
+                cosI = System.Math.Sqrt(1 - sin2T);
+            }
+
+            var r0 = (N1 - N2) / (N1 + N2);
+            r0 = r0 * r0;
+
+            return r0 + (1.0 - r0) * System.Math.Pow(1 - cosI, 5);
+        }
     }
 }

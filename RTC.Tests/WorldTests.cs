@@ -471,6 +471,7 @@ namespace RTC.Tests
                 Transform = Matrix4.Translation(0, -1, 0),
                 Material = new Material
                 {
+                    Reflective = 0.5,
                     Transparency = 0.5,
                     RefractiveIndex = 1.5
                 }
@@ -498,7 +499,86 @@ namespace RTC.Tests
             var comps = Computation.Prepare(xs[0], ray, xs);
             var color = LightUtil.ShadeHit(world, comps, 5);
 
-            Assert.AreEqual(new Color(0.93642, 0.68642, 0.68642), color);
+            Assert.AreEqual(new Color(0.93391, 0.69643, 0.69243), color);
+            //Assert.AreEqual(new Color(0.93642, 0.68642, 0.68642), color);
+            
+        }
+
+        [Test]
+        public void TestSchlickTotalInternalReflection()
+        {
+            var sphere = new Sphere
+            {
+                Material = new Material
+                {
+                    Transparency = 1.0,
+                    RefractiveIndex = 1.5
+                }
+            };
+
+            var ray = new Ray(Tuple.Point(0, 0, 0.5 * System.Math.Sqrt(2)), Tuple.Vector(0, 1, 0));
+
+            var xs = new Intersections
+            {
+                new Intersection(-0.5 * System.Math.Sqrt(2), sphere),
+                new Intersection( 0.5 * System.Math.Sqrt(2), sphere)
+            };
+
+            var comps = Computation.Prepare(xs[1], ray, xs);
+            var reflectance = comps.Schlick();
+
+            Assert.AreEqual(1.0, reflectance);
+        }
+
+        [Test]
+        public void TestSchlickPerpendicular()
+        {
+            var sphere = new Sphere
+            {
+                Material = new Material
+                {
+                    Transparency = 1.0,
+                    RefractiveIndex = 1.5
+                }
+            };
+
+            var ray = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 1, 0));
+
+            var xs = new Intersections
+            {
+                new Intersection(-1, sphere),
+                new Intersection( 1, sphere)
+            };
+
+            var comps = Computation.Prepare(xs[1], ray, xs);
+            var reflectance = comps.Schlick();
+
+            Assert.AreEqual(0.04, reflectance, Epsilon);
+        }
+
+        [Test]
+        public void TestSchlickSmallAngle()
+        {
+            var sphere = new Sphere
+            {
+                Material = new Material
+                {
+                    Transparency = 1.0,
+                    RefractiveIndex = 1.5
+                }
+            };
+
+            var ray = new Ray(Tuple.Point(0, 0.99, -2), Tuple.Vector(0, 0, 1));
+
+            var xs = new Intersections
+            {
+                new Intersection(1.8589, sphere),
+            };
+
+            var comps = Computation.Prepare(xs[0], ray, xs);
+            var reflectance = comps.Schlick();
+
+            Assert.AreEqual(0.48873, reflectance, Epsilon);
         }
     }
 }

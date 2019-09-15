@@ -56,6 +56,12 @@ namespace RTC.Geometry.Objects.Utils
             var reflected = world.ReflectedColor(comps, remaining);
             var refracted = world.RefractColor(comps, remaining);
 
+            if (comps.Shape.Material.Reflective > 0 && comps.Shape.Material.Transparency > 0)
+            {
+                var reflectance = comps.Schlick();
+                return surface + reflectance * reflected + (1 - reflectance) * refracted;
+            }
+
             return surface + reflected + refracted;
         }
     }
