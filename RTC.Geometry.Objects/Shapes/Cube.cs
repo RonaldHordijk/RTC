@@ -48,7 +48,16 @@ namespace RTC.Geometry.Objects.Shapes
 
         protected override Tuple LocalNormal(Tuple objectPoint)
         {
-            throw new NotImplementedException();
+            var maxc = Math.Max(Math.Abs(objectPoint.X),
+                                Math.Max(Math.Abs(objectPoint.Y), Math.Abs(objectPoint.Z)));
+
+            if (maxc == Math.Abs(objectPoint.X))
+                return Tuple.Vector(objectPoint.X, 0, 0);
+
+            if (maxc == Math.Abs(objectPoint.Y))
+                return Tuple.Vector(0, objectPoint.Y, 0);
+
+            return Tuple.Vector(0, 0, objectPoint.Z);
         }
     }
 }

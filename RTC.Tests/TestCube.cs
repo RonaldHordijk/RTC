@@ -29,7 +29,7 @@ namespace RTC.Tests
         }
 
         [Test]
-        [TestCase(-2, 0, 0 , 0.2673, 0.5345, 0.8018)]
+        [TestCase(-2, 0, 0, 0.2673, 0.5345, 0.8018)]
         [TestCase(0, -2, 0, 0.8018, 0.2673, 0.5345)]
         [TestCase(0, 0, -2, 0.5345, 0.8018, 0.2673)]
         [TestCase(2, 0, 2, 0, 0, -1)]
@@ -42,6 +42,23 @@ namespace RTC.Tests
             var xs = cube.Intersect(ray);
 
             Assert.AreEqual(0, xs.Count);
+        }
+
+        [Test]
+        [TestCase(1, 0.5, -0.8, 1, 0, 0)]
+        [TestCase(-1, -0.2, 0.9, -1, 0, 0)]
+        [TestCase(-0.4, 1, -0.1, 0, 1, 0)]
+        [TestCase(0.3, -1, -0.7, 0, -1, 0)]
+        [TestCase(-0.6, 0.3, 1, 0, 0, 1)]
+        [TestCase(0.4, 0.4, -1, 0, 0, -1)]
+        [TestCase(1, 1, 1, 1, 0, 0)]
+        [TestCase(-1, -1, -1, -1, 0, 0)]
+        public void TestNormalCube(double px, double py, double pz, double nx, double ny, double nz)
+        {
+            var cube = new Cube();
+            var normal = cube.Normal(Tuple.Point(px, py, pz));
+
+            Assert.AreEqual(normal, Tuple.Vector(nx, ny, nz));
         }
     }
 }
