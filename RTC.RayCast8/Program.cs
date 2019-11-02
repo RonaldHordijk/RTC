@@ -44,8 +44,11 @@ namespace RTC.RayCast8
                 }
             };
 
-            var right = new Sphere()
+            var right = new Cylinder()
             {
+                Minimum = -1,
+                Maximum = 1,
+                Closed = true,
                 Transform = Matrix4.Translation(1.5, 0.5, -0.5) * Matrix4.Scaling(0.5, 0.5, 0.5),
                 Material = new Material
                 {
