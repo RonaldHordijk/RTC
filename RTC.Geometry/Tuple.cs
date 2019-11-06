@@ -120,6 +120,9 @@ namespace RTC.Geometry
         public Tuple Normalized()
         {
             var Magnitude = this.Magnitude;
+            if (Magnitude < Epsilon)
+                return new Tuple(0, 0, 0, 0);
+
             return new Tuple(
                 X / Magnitude,
                 Y / Magnitude,

@@ -31,8 +31,11 @@ namespace RTC.RayCast8
                 }
             };
 
-            var middle = new Sphere()
+            var middle = new Cone()
             {
+                Minimum = -1,
+                Maximum = 1,
+                Closed = true,
                 Transform = Matrix4.Translation(-0.5, 1, 0.5),
                 Material = new Material
                 {
